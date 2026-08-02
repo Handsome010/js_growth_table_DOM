@@ -18,25 +18,45 @@ appendRow.addEventListener('click', (e) => {
     e.target.setAttribute('disabled', 'true');
   }
 
-  console.log('adding row');
+  // console.log('adding row');
 });
 
 removeRow.addEventListener('click', (e) => {
   if ([...table.rows].length > 2) {
-    table.deleteRow(0);
+    table.deleteRow([...table.rows].length - 1);
     appendRow.removeAttribute('disabled');
   }
 
   if ([...table.rows].length === 2) {
     e.target.setAttribute('disabled', 'true');
   }
-  console.log('removing row');
+  // console.log('removing row');
 });
 
 appendCol.addEventListener('click', (e) => {
-  console.log('adding col');
+  if (table.rows[0].cells.length < 10) {
+    for (const item of table.rows) {
+      item.insertCell();
+      removeCol.removeAttribute('disabled');
+    }
+    // console.log('adding col');
+  }
+
+  if (table.rows[0].cells.length === 10) {
+    e.target.setAttribute('disabled', 'true');
+  }
 });
 
 removeCol.addEventListener('click', (e) => {
-  console.log('removing col');
+  if (table.rows[0].cells.length > 2) {
+    for (const item of table.rows) {
+      item.deleteCell(-1);
+      appendCol.removeAttribute('disabled');
+    }
+    // console.log('removing col');
+  }
+
+  if (table.rows[0].cells.length === 2) {
+    e.target.setAttribute('disabled', 'true');
+  }
 });
